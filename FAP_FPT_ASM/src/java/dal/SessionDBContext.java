@@ -24,7 +24,7 @@ public class SessionDBContext extends DBContext<Session> {
     public ArrayList<Session> getSessionByLecturerIdFromTo(String lid, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
-            String sql = "SELECT"
+            String sql = "SELECT \n"
                     + "ses.sesid,ses.date,ses.istaken,\n"
                     + "g.gid,g.gname,\n"
                     + "s.subid,s.subname,\n"
