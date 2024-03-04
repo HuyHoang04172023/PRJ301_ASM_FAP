@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -42,4 +43,13 @@ public class DateTimeHelper {
         return calendar.getTime();
     }
 
+    public static ArrayList<java.sql.Date> getListBetween(Date from, Date to) {
+        ArrayList<java.sql.Date> dates = new ArrayList<>();
+        Date temp = from;
+        while (!temp.after(to)) {
+            dates.add(utilDateToSqlDate(temp));
+            temp = addDaysToDate(temp, 1);
+        }
+        return dates;
+    }
 }

@@ -36,7 +36,7 @@ public class SessionDBContext extends DBContext<Session> {
                     + "                 INNER JOIN Room r ON ses.rid = r.rid\n"
                     + "                 INNER JOIN TimeSlot t ON ses.tid = t.tid\n"
                     + "                 INNER JOIN Lecturer l ON ses.lid = l.lid\n"
-                    + "WHERE ses.lid = '?' AND ses.date BETWEEN '?' AND '?'";
+                    + "WHERE ses.lid = ? AND ses.date BETWEEN ? AND ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, lid);
             stm.setDate(2, from);

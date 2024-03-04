@@ -5,13 +5,19 @@
 
 package controller.lecturer;
 
+import dal.LecturerDBContext;
 import dal.SessionDBContext;
+import dal.TimeSlotDBContext;
+import entity.Lecturer;
+import entity.Session;
+import entity.TimeSlot;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta .servlet.ServletException;
 import jakarta .servlet.http.HttpServlet;
 import jakarta .servlet.http.HttpServletRequest;
 import jakarta .servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import util.DateTimeHelper;
 
@@ -41,7 +47,7 @@ public class TimeTableController extends HttpServlet {
         Date today = new Date();
         
         if(temp_from == null){
-            from = DateTimeHelper.utilDateToSqlDate(DateTimeHelper.getFirstDayOfWeek(today));
+            from = DateTimeHelper.utilDateToSqlDate(DateTimeHelper.addDaysToDate(DateTimeHelper.getFirstDayOfWeek(today), 1));
         }else{
             from = java.sql.Date.valueOf(temp_from);
         }
@@ -53,7 +59,25 @@ public class TimeTableController extends HttpServlet {
         }
         
         SessionDBContext sesDB = new SessionDBContext();
-        sesDB.getSessionByLecturerIdFromTo(lid, from, to);
+        ArrayList<Session> sessions = sesDB.getSessionByLecturerIdFromTo(lid, from, to);
+        
+        TimeSlotDBContext timeslotDB = new TimeSlotDBContext();
+        ArrayList<TimeSlot> slots = timeslotDB.list();
+        
+        LecturerDBContext lectDB = new LecturerDBContext();
+        ArrayList<Lecturer> lects = lectDB.list();
+        
+        ArrayList<java.sql.Date> dates = DateTimeHelper.getListBetween(DateTimeHelper.sqlDateToUtilDate(from), DateTimeHelper.sqlDateToUtilDate(to));
+        
+        
+        
+        request.setAttribute("sessions", sessions);
+        request.setAttribute("slots", slots);
+        request.setAttribute("lects", lects);
+        request.setAttribute("lid", lid);
+        request.setAttribute("dates", dates);
+        request.setAttribute("from", from);
+        request.setAttribute("to", to);
         
         request.getRequestDispatcher("../view/lecturer/TimeTable.jsp").forward(request, response);
         

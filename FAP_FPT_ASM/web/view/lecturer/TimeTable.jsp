@@ -4,14 +4,61 @@
     Author     : Hoang
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+        </script>
+        <link rel="stylesheet" href="../css/lecturer/TimeTableStyle.css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="timetable" method="GET">
+
+            Lecturer:<input type="text" name="lid" value="${requestScope.lid}"/>
+            <input type="submit" value="View"/>
+            <br/>
+
+            <table border="1px">
+                <tr id="header">
+                    <td class="header-timetable">
+                        From:<input type="date" name="from" value="${requestScope.from}"/>
+                    </td>
+                    <c:forEach items="${requestScope.dates}" var="date">
+                        <td class="header-timetable"><fmt:formatDate pattern="E" value="${date}" /></td>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <td class="header-timetable">
+                        To:<input type="date" name="to" value="${requestScope.to}"/>
+                    </td>
+                    <c:forEach items="${requestScope.dates}" var="date">
+                        <td class="header-timetable"><fmt:formatDate pattern="d/M" value="${date}" /></td>
+                    </c:forEach>
+                </tr>
+
+                <c:forEach items="${requestScope.slots}" var="slot">
+                    <tr>
+                        <td>${slot.name}</td>
+                        <c:forEach items="${requestScope.dates}" var="date">
+                            <td>
+                                <c:forEach items="${requestScope.sessions}" var="ses">
+                                    <c:if test="${ses.slot.id eq slot.id and ses.date eq date}">
+                                        ${ses.group.name}<br/>
+                                        -${ses.group.subject.name}<br/>
+                                        at ${ses.room.name}
+                                    </c:if>
+                                </c:forEach>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
+
     </body>
 </html>
