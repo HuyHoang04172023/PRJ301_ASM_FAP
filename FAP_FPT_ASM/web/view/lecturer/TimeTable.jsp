@@ -48,9 +48,19 @@
                             <td>
                                 <c:forEach items="${requestScope.sessions}" var="ses">
                                     <c:if test="${ses.slot.id eq slot.id and ses.date eq date}">
-                                        ${ses.group.name}<br/>
-                                        -${ses.group.subject.name}<br/>
-                                        at ${ses.room.name}
+                                        <div style="color: #3eabcc"; >
+                                            ${ses.group.name}<br/>
+                                            -${ses.group.subject.name}<br/>
+                                            at ${ses.room.name}<br/>
+                                        </div>
+
+
+                                        <c:if test="${ses.isTaken}">(<span style="color: green;">Attended</span>)</c:if>
+                                        <c:if test="${!ses.isTaken}">(<span style="color: red;">Not Yet</span>)</c:if>
+                                        <a href="attend?sesid=${ses.id}">
+                                        <c:if test="${ses.isTaken}">Edit</c:if>
+                                        <c:if test="${ses.isTaken}">Take</c:if>
+                                    </a>
                                     </c:if>
                                 </c:forEach>
                             </td>
