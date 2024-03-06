@@ -57,9 +57,10 @@
 
                                         <c:if test="${ses.isTaken}">(<span style="color: green;">Attended</span>)</c:if>
                                         <c:if test="${!ses.isTaken}">(<span style="color: red;">Not Yet</span>)</c:if>
-                                        <a href="attend?sesid=${ses.id}">
+                                        <br/>
+                                        <a href="attendance?sesid=${ses.id}">
                                         <c:if test="${ses.isTaken}">Edit</c:if>
-                                        <c:if test="${ses.isTaken}">Take</c:if>
+                                        <c:if test="${!ses.isTaken}">Take</c:if>
                                     </a>
                                     </c:if>
                                 </c:forEach>

@@ -29,42 +29,55 @@ public class SessionDBContext extends DBContext<Session> {
             String sql = "SELECT \n"
                     + "s.sid, s.sname, s.sgender,\n"
                     + "g.gid,g.gname,\n"
-                    + "a.aid,a.ispresent,a.description,a.datetime\n"
-                    + "\n"
+                    + "a.aid,a.ispresent,a.description,a.datetime,\n"
+                    + "l.lid,l.lname\n"
+                    + "                    \n"
                     + "FROM Student s\n"
                     + "INNER JOIN GroupStudent grs ON s.sid = grs.sid\n"
                     + "INNER JOIN [Group] g ON grs.gid = g.gid\n"
                     + "INNER JOIN [Session] ses ON g.gid = ses.gid\n"
+                    + "INNER JOIN Lecturer l ON ses.lid = l.lid\n"
                     + "LEFT JOIN Attendance a ON s.sid = a.sid AND ses.sesid = a.sesid\n"
                     + "WHERE ses.sesid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, sesid);
             ResultSet rs = stm.executeQuery();
-            
-            while (rs.next()){
+
+            while (rs.next()) {
                 Attendance a = new Attendance();
                 Session ses = new Session();
                 Student stu = new Student();
-
+                Group g = new Group();
+                Lecturer l = new Lecturer();
+                
+                
+                l.setId(rs.getString("lid"));
+                l.setName(rs.getString("lname"));
+                
+                
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                
+                ses.setLecturer(l);
+                ses.setGroup(g);
                 ses.setId(sesid);
                 a.setSession(ses);
-                
+
                 stu.setId(rs.getString("sid"));
                 stu.setName(rs.getString("sname"));
                 stu.setGender(rs.getBoolean("sgender"));
                 a.setStudent(stu);
-                
+
                 a.setId(rs.getInt("aid"));
-                
-                if(a.getId() != 0){
+
+                if (a.getId() != 0) {
                     a.setIsPresent(rs.getBoolean("ispresent"));
                     a.setDescription(rs.getString("description"));
                     a.setDatetime(rs.getTimestamp("datetime"));
                 }
                 attends.add(a);
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
