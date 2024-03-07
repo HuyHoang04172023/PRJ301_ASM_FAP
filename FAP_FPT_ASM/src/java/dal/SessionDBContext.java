@@ -23,6 +23,70 @@ import java.util.logging.Logger;
  */
 public class SessionDBContext extends DBContext<Session> {
 
+    public void takeAttendanceBySesionID(int sesid, ArrayList<Attendance> atts) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_get_isTaken = "SELECT istaken FROM Session WHERE sesid = ?";
+            PreparedStatement stm_get_isTaken = connection.prepareStatement(sql_get_isTaken);
+            stm_get_isTaken.setInt(1, sesid);
+            ResultSet rs_get_isTaken = stm_get_isTaken.executeQuery();
+            boolean isTaken = false;
+            while (rs_get_isTaken.next()){
+                 isTaken = rs_get_isTaken.getBoolean("istaken");
+            }
+            
+            if (!isTaken) {
+                for (Attendance a : atts) {
+                    String sql_insert_att = "INSERT INTO [dbo].[Attendance]\n"
+                            + "([sesid],[sid],[ispresent],[description],[datetime])\n"
+                            + "VALUES\n"
+                            + "(?,?,?,?,GETDATE())";
+                    PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
+                    stm_insert_att.setInt(1, sesid);
+                    stm_insert_att.setString(2, a.getStudent().getId());
+                    stm_insert_att.setBoolean(3, a.isIsPresent());
+                    stm_insert_att.setString(4, a.getDescription());
+                    stm_insert_att.executeUpdate();
+                }
+            } else {
+                for (Attendance a : atts) {
+                    String sql_update_att = "UPDATE [dbo].[Attendance]\n"
+                            + "   SET [ispresent] = ?\n"
+                            + "      ,[description] = ?\n"
+                            + "      ,[datetime] = GETDATE()\n"
+                            + " WHERE sid = ? AND sesid = ?";
+                    PreparedStatement stm_update_att = connection.prepareStatement(sql_update_att);
+                    stm_update_att.setBoolean(1, a.isIsPresent());
+                    stm_update_att.setString(2, a.getDescription());
+                    stm_update_att.setString(3, a.getStudent().getId());
+                    stm_update_att.setInt(4, sesid);
+                    stm_update_att.executeUpdate();
+                }
+
+            }
+            String sql_update_istaken_session = "UPDATE [dbo].[Session]\n"
+                    + "SET [istaken] = 1\n"
+                    + "WHERE sesid = ? ";
+            PreparedStatement stm_update_istaken_session = connection.prepareStatement(sql_update_istaken_session);
+            stm_update_istaken_session.setInt(1, sesid);
+            stm_update_istaken_session.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public ArrayList<Attendance> getAttendencesBySession(int sesid) {
         ArrayList<Attendance> attends = new ArrayList<>();
         try {
@@ -49,15 +113,13 @@ public class SessionDBContext extends DBContext<Session> {
                 Student stu = new Student();
                 Group g = new Group();
                 Lecturer l = new Lecturer();
-                
-                
+
                 l.setId(rs.getString("lid"));
                 l.setName(rs.getString("lname"));
-                
-                
+
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
-                
+
                 ses.setLecturer(l);
                 ses.setGroup(g);
                 ses.setId(sesid);
