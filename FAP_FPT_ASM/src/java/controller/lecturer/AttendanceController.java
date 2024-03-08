@@ -4,7 +4,9 @@
  */
 package controller.lecturer;
 
+import controller.authentication.BaseRequiredAuthenticationController;
 import dal.SessionDBContext;
+import entity.Account;
 import entity.Attendance;
 import entity.Session;
 import entity.Student;
@@ -20,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class AttendanceController extends HttpServlet {
+public class AttendanceController extends BaseRequiredAuthenticationController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -32,7 +34,7 @@ public class AttendanceController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account)
             throws ServletException, IOException {
         int sesid = Integer.parseInt(request.getParameter("sesid"));
         SessionDBContext sesDB = new SessionDBContext();
@@ -51,7 +53,7 @@ public class AttendanceController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account)
             throws ServletException, IOException {
         int sesid = Integer.parseInt(request.getParameter("sesid"));
         SessionDBContext sesDB = new SessionDBContext();
