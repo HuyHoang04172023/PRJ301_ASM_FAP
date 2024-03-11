@@ -13,6 +13,7 @@ public class Grade {
     private Exam exam;
     private Student student;
     private float score;
+    private String semester;
 
     public int getId() {
         return id;
@@ -44,6 +45,14 @@ public class Grade {
 
     public void setScore(float score) {
         this.score = score;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
     
     

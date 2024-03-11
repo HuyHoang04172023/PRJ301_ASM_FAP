@@ -206,7 +206,7 @@ public class SessionDBContext extends DBContext<Session> {
 
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
-                sub.setId(rs.getInt("subid"));
+                sub.setId(rs.getString("subid"));
                 sub.setName(rs.getString("subname"));
                 g.setSubject(sub);
                 ses.setGroup(g);

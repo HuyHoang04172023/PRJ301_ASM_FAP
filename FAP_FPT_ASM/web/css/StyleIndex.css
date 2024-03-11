@@ -18,6 +18,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .content{
-    display: inline-block;
-    margin-right: 10px;
+}
+
+.content div {
+    border: 1px solid black;
 }

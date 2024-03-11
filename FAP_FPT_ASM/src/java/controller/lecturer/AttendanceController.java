@@ -68,8 +68,9 @@ public class AttendanceController extends BaseRequiredAuthenticationController {
             att_new.setIsPresent(request.getParameter("isPresent" + att_new.getStudent().getId()).equals("yes"));
             att_new.setDescription(request.getParameter("description" + att_new.getStudent().getId()));
             //
-            if (att_old.isIsPresent() != att_new.isIsPresent() || 
-               !att_old.getDescription().equals(att_new.getDescription())) {
+            if (att_old.isIsPresent() != att_new.isIsPresent()
+                    || (att_old.getDescription() == null && att_new.getDescription() != null)
+                    || (att_old.getDescription() != null && !att_old.getDescription().equals(att_new.getDescription()))) {
                 atts_new.add(att_new);
             }
         }

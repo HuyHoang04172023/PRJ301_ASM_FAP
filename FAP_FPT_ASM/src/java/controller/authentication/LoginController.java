@@ -56,17 +56,17 @@ public class LoginController extends HttpServlet {
         if (account != null) {
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            
+
             Cookie c_user = new Cookie("username", username);
             Cookie c_pass = new Cookie("password", password);
-            c_user.setMaxAge(3600*24*7);
-            c_pass.setMaxAge(3600*24*7);
+            c_user.setMaxAge(3600 * 24 * 7);
+            c_pass.setMaxAge(3600 * 24 * 7);
             response.addCookie(c_user);
             response.addCookie(c_pass);
-            
-            response.getWriter().println("Hello " + account.getDisplayname() + ", login sucessful!");
+
+            response.sendRedirect("index.html");
         } else {
-            response.getWriter().println("login failed");
+            response.getWriter().println("Login failed");
         }
 
     }

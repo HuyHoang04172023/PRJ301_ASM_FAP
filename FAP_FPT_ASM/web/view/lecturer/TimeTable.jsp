@@ -24,16 +24,16 @@
             <br/>
 
             <table border="1px">
-                <tr id="header">
-                    <td class="header-timetable">
+                <tr>
+                    <td>
                         From:<input type="date" name="from" value="${requestScope.from}"/>
                     </td>
                     <c:forEach items="${requestScope.dates}" var="date">
-                        <td class="header-timetable"><fmt:formatDate pattern="E" value="${date}" /></td>
+                        <td><fmt:formatDate pattern="E" value="${date}" /></td>
                     </c:forEach>
                 </tr>
                 <tr>
-                    <td class="header-timetable">
+                    <td>
                         To:<input type="date" name="to" value="${requestScope.to}"/>
                     </td>
                     <c:forEach items="${requestScope.dates}" var="date">
