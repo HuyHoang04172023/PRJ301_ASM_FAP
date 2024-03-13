@@ -50,7 +50,7 @@
                                     <c:if test="${ses.slot.id eq slot.id and ses.date eq date}">
                                         <div style="color: #3eabcc"; >
                                             ${ses.group.name}<br/>
-                                            -${ses.group.subject.name}<br/>
+                                            -${ses.group.subject.id}<br/>
                                             at ${ses.room.name}<br/>
                                         </div>
 

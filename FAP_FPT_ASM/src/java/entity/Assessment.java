@@ -9,16 +9,17 @@ package entity;
  * @author Hoang
  */
 public class Assessment {
-    private int id;
+    private String id;
     private String name;
     private Subject subject;
     private float weight;
+    private String category;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -44,6 +45,14 @@ public class Assessment {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     
     

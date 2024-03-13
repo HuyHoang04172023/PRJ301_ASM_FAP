@@ -5,6 +5,8 @@
 package controller.student;
 
 import dal.GradeDBContext;
+import dal.StudentDBContext;
+import entity.Grade;
 import entity.Subject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,12 +27,19 @@ public class MarkReportController extends HttpServlet {
             throws ServletException, IOException {
         String stuid = request.getParameter("stuid");
         String semester = request.getParameter("semester");
+        String subid = request.getParameter("subid");
+        
+        StudentDBContext stuDB = new StudentDBContext();
+        ArrayList<String> semesters = stuDB.getSemesterByStudent(stuid);
+        ArrayList<Subject> subs = stuDB.getCourseByStudentAndSemester(stuid, semester);
+        
         GradeDBContext graDB = new GradeDBContext();
-        ArrayList<String> semesters = graDB.getSemesterByStudent(stuid);
-        ArrayList<Subject> subs = graDB.getCourseBYStudentAndSemester(stuid, semester);
+        ArrayList<Grade> grades = graDB.getGradeByStudentAndSubject(stuid, subid);
 
+        request.setAttribute("stuid", stuid);
         request.setAttribute("subs", subs);
         request.setAttribute("semesters", semesters);
+        request.setAttribute("grades", grades);
         request.getRequestDispatcher("../view/student/MarkReport.jsp").forward(request, response);
     }
 
