@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/web/view/student/MarkReport.jsp</file>
             <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/dal/GradeDBContext.java</file>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/entity/Exam.java</file>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/entity/Grade.java</file>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/entity/Assessment.java</file>
             <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/controller/student/MarkReportController.java</file>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/controller/student/GradeController.java</file>
         </group>
     </open-files>
 </project-private>

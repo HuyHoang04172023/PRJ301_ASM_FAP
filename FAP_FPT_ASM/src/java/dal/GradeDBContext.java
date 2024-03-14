@@ -26,7 +26,7 @@ public class GradeDBContext extends DBContext<Grade> {
             String sql = "SELECT \n"
                     + "g.gid,g.score,\n"
                     + "e.eid,\n"
-                    + "a.asid,a.weight,a.name,\n"
+                    + "a.asid,a.weight,a.name,a.category,\n"
                     + "s.sid,s.sname\n"
                     + "FROM Grade g \n"
                     + "INNER JOIN Exam e ON g.eid = e.eid\n"
@@ -50,6 +50,7 @@ public class GradeDBContext extends DBContext<Grade> {
                 a.setId(rs.getString("asid"));
                 a.setWeight(rs.getInt("weight"));
                 a.setName(rs.getString("name"));
+                a.setCategory(rs.getString("category"));
                 e.setId(rs.getInt("eid"));
                 e.setAssessment(a);
                 g.setExam(e);

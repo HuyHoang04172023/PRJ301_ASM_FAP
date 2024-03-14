@@ -57,12 +57,12 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
 
-            Cookie c_user = new Cookie("username", username);
-            Cookie c_pass = new Cookie("password", password);
-            c_user.setMaxAge(3600 * 24 * 7);
-            c_pass.setMaxAge(3600 * 24 * 7);
-            response.addCookie(c_user);
-            response.addCookie(c_pass);
+//            Cookie c_user = new Cookie("username", username);
+//            Cookie c_pass = new Cookie("password", password);
+//            c_user.setMaxAge(10);
+//            c_pass.setMaxAge(10);
+//            response.addCookie(c_user);
+//            response.addCookie(c_pass);
 
             response.sendRedirect("index.html");
         } else {

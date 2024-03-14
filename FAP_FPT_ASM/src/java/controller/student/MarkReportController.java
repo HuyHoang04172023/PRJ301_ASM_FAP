@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -28,18 +30,43 @@ public class MarkReportController extends HttpServlet {
         String stuid = request.getParameter("stuid");
         String semester = request.getParameter("semester");
         String subid = request.getParameter("subid");
-        
+
         StudentDBContext stuDB = new StudentDBContext();
         ArrayList<String> semesters = stuDB.getSemesterByStudent(stuid);
         ArrayList<Subject> subs = stuDB.getCourseByStudentAndSemester(stuid, semester);
-        
+
         GradeDBContext graDB = new GradeDBContext();
         ArrayList<Grade> grades = graDB.getGradeByStudentAndSubject(stuid, subid);
+        ArrayList<Grade> grades_new = new ArrayList<>();
+        for(Grade g : grades){
+            if(!g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam")&&
+               !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam Resit")&&
+               !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Practical Exam")){
+                grades_new.add(g);
+                
+            }
+        }
+        
+        for(Grade g : grades){
+            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Practical Exam")){
+                grades_new.add(g);
+                
+            }
+        }
+        
+        for(Grade g : grades){
+            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam")||
+               g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam Resit")){
+                grades_new.add(g);
+                
+            }
+        }
+        
 
         request.setAttribute("stuid", stuid);
         request.setAttribute("subs", subs);
         request.setAttribute("semesters", semesters);
-        request.setAttribute("grades", grades);
+        request.setAttribute("grades", grades_new);
         request.getRequestDispatcher("../view/student/MarkReport.jsp").forward(request, response);
     }
 
