@@ -6,6 +6,7 @@ package controller.authentication;
 
 import dal.AccountDBContext;
 import entity.Account;
+import entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -52,6 +53,7 @@ public class LoginController extends HttpServlet {
 
         AccountDBContext db = new AccountDBContext();
         Account account = db.getByUsernamePassword(username, password);
+        Role role = db.getRoleByUsernamePassword(username, password);
 
         if (account != null) {
             HttpSession session = request.getSession();
@@ -64,9 +66,19 @@ public class LoginController extends HttpServlet {
 //            response.addCookie(c_user);
 //            response.addCookie(c_pass);
 
-            response.sendRedirect("index.html");
+        if(role.getName().equals("Lecturer")){
+            response.sendRedirect("home/indexHomeLecturer.html");
+        }
+        if(role.getName().equals("Student")){
+            response.sendRedirect("home/indexHomeStudent.html");
+        }
+
+            
         } else {
-            response.getWriter().println("Login failed");
+            String error ="Login failed";
+            request.setAttribute("error", error);
+            request.getRequestDispatcher("index.html").forward(request, response);
+//            response.getWriter().println("Login failed");
         }
 
     }
