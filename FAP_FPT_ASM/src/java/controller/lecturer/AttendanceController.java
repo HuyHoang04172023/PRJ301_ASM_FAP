@@ -5,9 +5,11 @@
 package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
+import controller.authentication.authorization.BaseRBACController;
 import dal.SessionDBContext;
 import entity.Account;
 import entity.Attendance;
+import entity.Role;
 import entity.Session;
 import entity.Student;
 import java.io.IOException;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class AttendanceController extends BaseRequiredAuthenticationController {
+public class AttendanceController extends BaseRBACController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,7 +36,7 @@ public class AttendanceController extends BaseRequiredAuthenticationController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
         int sesid = Integer.parseInt(request.getParameter("sesid"));
         SessionDBContext sesDB = new SessionDBContext();
@@ -53,7 +55,7 @@ public class AttendanceController extends BaseRequiredAuthenticationController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
         int sesid = Integer.parseInt(request.getParameter("sesid"));
         SessionDBContext sesDB = new SessionDBContext();

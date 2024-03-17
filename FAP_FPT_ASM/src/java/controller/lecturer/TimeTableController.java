@@ -6,11 +6,13 @@
 package controller.lecturer;
 
 import controller.authentication.BaseRequiredAuthenticationController;
+import controller.authentication.authorization.BaseRBACController;
 import dal.LecturerDBContext;
 import dal.SessionDBContext;
 import dal.TimeSlotDBContext;
 import entity.Account;
 import entity.Lecturer;
+import entity.Role;
 import entity.Session;
 import entity.TimeSlot;
 import java.io.IOException;
@@ -27,7 +29,7 @@ import util.DateTimeHelper;
  *
  * @author Hoang
  */
-public class TimeTableController extends BaseRequiredAuthenticationController {
+public class TimeTableController extends BaseRBACController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -38,7 +40,7 @@ public class TimeTableController extends BaseRequiredAuthenticationController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         String lid = request.getParameter("lid");
         String temp_from = request.getParameter("from");
@@ -93,7 +95,7 @@ public class TimeTableController extends BaseRequiredAuthenticationController {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         
     }

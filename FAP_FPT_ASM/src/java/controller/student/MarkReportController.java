@@ -4,9 +4,12 @@
  */
 package controller.student;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.GradeDBContext;
 import dal.StudentDBContext;
+import entity.Account;
 import entity.Grade;
+import entity.Role;
 import entity.Subject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,10 +25,10 @@ import java.util.Comparator;
  *
  * @author Hoang
  */
-public class MarkReportController extends HttpServlet {
+public class MarkReportController extends BaseRBACController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
         String stuid = request.getParameter("stuid");
         String semester = request.getParameter("semester");
@@ -71,7 +74,7 @@ public class MarkReportController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
 
     }
