@@ -5,7 +5,10 @@
 
 package controller.lecturer;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.SessionDBContext;
+import entity.Account;
+import entity.Role;
 import entity.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class ListSessionController extends HttpServlet {
+public class ListSessionController extends BaseRBACController {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -30,7 +33,7 @@ public class ListSessionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         String lid = (String) request.getSession().getAttribute("userid");
         SessionDBContext sesDB = new SessionDBContext();
@@ -49,7 +52,7 @@ public class ListSessionController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         
     }

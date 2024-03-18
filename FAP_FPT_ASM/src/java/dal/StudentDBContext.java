@@ -31,7 +31,7 @@ public class StudentDBContext extends DBContext<Student> {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Student stu = new Student();
                 stu.setId(rs.getString("sid"));
                 stu.setName(rs.getString("sname"));
@@ -50,7 +50,14 @@ public class StudentDBContext extends DBContext<Student> {
         try {
             String sql = "SELECT semester FROM StudentCourse\n"
                     + "WHERE sid = ? \n"
-                    + "GROUP BY semester";
+                    + "GROUP BY semester\n"
+                    + "ORDER BY \n"
+                    + "    CASE \n"
+                    + "        WHEN semester = 'Spring2023' THEN 1 \n"
+                    + "        WHEN semester = 'Summer2023' THEN 2 \n"
+                    + "        WHEN semester = 'Fall2023' THEN 3 \n"
+                    + "        WHEN semester = 'Spring2024' THEN 4 \n"
+                    + "    END;";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, stuid);
             ResultSet rs = stm.executeQuery();

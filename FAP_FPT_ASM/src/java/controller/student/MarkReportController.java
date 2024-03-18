@@ -30,12 +30,12 @@ public class MarkReportController extends BaseRBACController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
-        String stuid = request.getParameter("stuid");
+        String stuid = (String) request.getSession().getAttribute("userid");
         String semester = request.getParameter("semester");
         String subid = request.getParameter("subid");
 
         StudentDBContext stuDB = new StudentDBContext();
-        ArrayList<String> semesters = stuDB.getSemesterByStudent(stuid);
+            ArrayList<String> semesters = stuDB.getSemesterByStudent(stuid);
         ArrayList<Subject> subs = stuDB.getCourseByStudentAndSemester(stuid, semester);
 
         GradeDBContext graDB = new GradeDBContext();
@@ -44,7 +44,8 @@ public class MarkReportController extends BaseRBACController {
         for(Grade g : grades){
             if(!g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam")&&
                !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam Resit")&&
-               !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Practical Exam")){
+               !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Practical Exam")&&
+               !g.getExam().getAssessment().getCategory().equalsIgnoreCase("Total")){
                 grades_new.add(g);
                 
             }
@@ -58,17 +59,31 @@ public class MarkReportController extends BaseRBACController {
         }
         
         for(Grade g : grades){
-            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam")||
-               g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam Resit")){
+            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam")){
                 grades_new.add(g);
                 
             }
         }
         
+        for(Grade g : grades){
+            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Final exam Resit")){
+                grades_new.add(g);
+                
+            }
+        }
+        
+        Grade total = new Grade();
+        for(Grade g : grades){
+            if(g.getExam().getAssessment().getCategory().equalsIgnoreCase("Total")){
+                total = g;
+                
+            }
+        }
 
         request.setAttribute("stuid", stuid);
         request.setAttribute("subs", subs);
         request.setAttribute("semesters", semesters);
+        request.setAttribute("total", total);
         request.setAttribute("grades", grades_new);
         request.getRequestDispatcher("../view/student/MarkReport.jsp").forward(request, response);
     }

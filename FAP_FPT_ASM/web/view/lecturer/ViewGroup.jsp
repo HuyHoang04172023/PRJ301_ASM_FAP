@@ -92,7 +92,7 @@
                         <table>
                             <c:forEach items="${requestScope.subjects}" var="sub">
                                 <tr>
-                                    <td><a href="?semester=${param.semester}&&subid=${sub.id}">${sub.name}</a></td>
+                                    <td><a href="?semester=${param.semester}&&subid=${sub.id}">${sub.name}(${sub.id})</a></td>
                                 </tr>
                             </c:forEach>
                         </table>

@@ -5,8 +5,11 @@
 
 package controller.lecturer;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.SessionDBContext;
+import entity.Account;
 import entity.Attendance;
+import entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta .servlet.ServletException;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class ViewAttendanceController extends HttpServlet {
+public class ViewAttendanceController extends BaseRBACController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -47,7 +50,7 @@ public class ViewAttendanceController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
@@ -60,7 +63,7 @@ public class ViewAttendanceController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         processRequest(request, response);
     }

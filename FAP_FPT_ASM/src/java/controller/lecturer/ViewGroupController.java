@@ -5,10 +5,13 @@
 
 package controller.lecturer;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.GroupDBContext;
 import dal.StudentDBContext;
 import dal.SubjectDBContext;
+import entity.Account;
 import entity.Group;
+import entity.Role;
 import entity.Student;
 import entity.Subject;
 import java.io.IOException;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class ViewGroupController extends HttpServlet {
+public class ViewGroupController extends BaseRBACController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -72,7 +75,7 @@ public class ViewGroupController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
@@ -85,7 +88,7 @@ public class ViewGroupController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
         processRequest(request, response);
     }
