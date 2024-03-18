@@ -32,6 +32,10 @@
         <servlet-name>ViewGroupController</servlet-name>
         <servlet-class>controller.lecturer.ViewGroupController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewScoreStudentController</servlet-name>
+        <servlet-class>controller.lecturer.ViewScoreStudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -63,5 +67,9 @@
     <servlet-mapping>
         <servlet-name>ViewGroupController</servlet-name>
         <url-pattern>/lecturer/viewgroup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewScoreStudentController</servlet-name>
+        <url-pattern>/lecturer/viewscorestudent</url-pattern>
     </servlet-mapping>
 </web-app>

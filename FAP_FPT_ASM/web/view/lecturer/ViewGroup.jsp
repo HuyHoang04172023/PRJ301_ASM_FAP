@@ -137,7 +137,7 @@
                         </td>
                         <td>
                             ${stu.email}<br/>
-                            <a href="">View Grade</a>
+                            <a href="../lecturer/viewscorestudent?stuid=${stu.id}">View Grade</a>
                         </td>
                         <td>${stu.id}</td>
                         <td>${stu.name}</td>

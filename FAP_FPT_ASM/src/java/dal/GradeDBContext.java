@@ -20,6 +20,53 @@ import java.util.logging.Logger;
  */
 public class GradeDBContext extends DBContext<Grade> {
 
+    public ArrayList<Grade> getGradeTotalByStudent(String stuid) {
+        ArrayList<Grade> grades = new ArrayList<>();
+        try {
+            String sql = "SELECT \n"
+                    + "g.score,\n"
+                    + "stu.sid,\n"
+                    + "e.semester,\n"
+                    + "a.asid,\n"
+                    + "sub.subid,sub.subname\n"
+                    + "FROM Grade g \n"
+                    + "INNER JOIN Student stu ON g.sid = stu.sid\n"
+                    + "INNER JOIN Exam e ON g.eid = e.eid\n"
+                    + "INNER JOIN Assessment a ON e.asid = a.asid\n"
+                    + "INNER JOIN [Subject] sub ON a.subid = sub.subid\n"
+                    + "WHERE a.category = 'Total' AND stu.sid =?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, stuid);
+            ResultSet rs = stm.executeQuery();
+            
+            while(rs.next()){
+                Grade g = new Grade();
+                g.setScore(rs.getFloat("score"));
+                
+                Student stu = new Student();
+                stu.setId(rs.getString("sid"));
+                g.setStudent(stu);
+                
+                Subject sub = new Subject();
+                sub.setId(rs.getString("subid"));
+                sub.setName(rs.getString("subname"));
+                
+                Assessment a = new Assessment();
+                a.setId(rs.getString("asid"));
+                a.setSubject(sub);
+                
+                Exam e = new Exam();
+                e.setAssessment(a);
+                e.setSemester(rs.getString("semester"));
+                g.setExam(e);
+                grades.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return grades;
+    }
+
     public ArrayList<Grade> getGradeByStudentAndSubject(String stuid, String subid) {
         ArrayList<Grade> grades = new ArrayList<>();
         try {

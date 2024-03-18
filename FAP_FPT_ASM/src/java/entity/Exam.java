@@ -15,6 +15,7 @@ public class Exam {
     private Assessment assessment;
     private Date begin;
     private Date end;
+    private String semester;
 
     public int getId() {
         return id;
@@ -46,6 +47,14 @@ public class Exam {
 
     public void setEnd(Date end) {
         this.end = end;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
     
     
