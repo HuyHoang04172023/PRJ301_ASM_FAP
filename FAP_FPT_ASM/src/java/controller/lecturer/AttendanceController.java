@@ -78,7 +78,7 @@ public class AttendanceController extends BaseRBACController {
         }
 
         sesDB.takeAttendanceBySesionID(sesid, atts_new);
-        response.sendRedirect("attendance?sesid=" + sesid);
+        response.sendRedirect("session");
     }
 
     /**

@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/authentication/login.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
@@ -57,14 +57,15 @@ public class LoginController extends HttpServlet {
 
         if (account != null) {
             HttpSession session = request.getSession();
+            session.setAttribute("userid", account.getUserid());
             session.setAttribute("account", account);
 
-//            Cookie c_user = new Cookie("username", username);
-//            Cookie c_pass = new Cookie("password", password);
-//            c_user.setMaxAge(10);
-//            c_pass.setMaxAge(10);
-//            response.addCookie(c_user);
-//            response.addCookie(c_pass);
+            Cookie c_user = new Cookie("username", username);
+            Cookie c_pass = new Cookie("password", password);
+            c_user.setMaxAge(3600);
+            c_pass.setMaxAge(3600);
+            response.addCookie(c_user);
+            response.addCookie(c_pass);
 
         if(role.getName().equals("Lecturer")){
             response.sendRedirect("home/indexHomeLecturer.html");
@@ -75,10 +76,9 @@ public class LoginController extends HttpServlet {
 
             
         } else {
-            String error ="Login failed";
+            String error ="Login failed!";
             request.setAttribute("error", error);
-            request.getRequestDispatcher("index.html").forward(request, response);
-//            response.getWriter().println("Login failed");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
     }

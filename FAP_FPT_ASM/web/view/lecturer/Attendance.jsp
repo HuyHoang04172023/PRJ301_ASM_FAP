@@ -11,6 +11,53 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            form {
+                width: 95%;
+                margin: 0 auto;
+                text-align: center; 
+            }
+
+            body {
+                background-color: #fff;
+                color: #000;
+                font-family: Arial, sans-serif;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            table, th, td {
+                border: 1px solid orange;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #ddd;
+            }
+            input[type=submit] {
+                background-color: orange;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 10px auto;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            input[type=submit]:hover {
+                background-color: #ff7f00;
+            }
+        </style>
+
     </head>
     <body>
         <form action="attendance" method="POST">

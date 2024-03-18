@@ -13,6 +13,7 @@ public class Account {
     private String username;
     private String password;
     private String displayname;
+    private String userid;
 
     public String getUsername() {
         return username;
@@ -38,4 +39,13 @@ public class Account {
         this.displayname = displayname;
     }
 
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    
 }
