@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/controller/authentication/authorization/BaseRBACController.java</file>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/controller/authentication/LoginController.java</file>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/dal/AccountDBContext.java</file>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/web/home/indexHomeStudent.html</file>
-            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/web/index.html</file>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/src/java/controller/lecturer/TimeTableController.java</file>
+            <file>file:/C:/Users/Hoang/Documents/GitHub/PRJ301_ASM_FAP/FAP_FPT_ASM/web/view/lecturer/TimeTable.jsp</file>
         </group>
     </open-files>
 </project-private>

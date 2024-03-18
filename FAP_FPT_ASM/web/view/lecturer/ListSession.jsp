@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>List Session</title>
         <style>
             body {
                 background-color: #fff;
@@ -70,6 +70,7 @@
                 <td>SLOT</td>
                 <td>GROUP NAME</td>
                 <td>STATUS</td>
+                <td>VIEW</td>
             </tr>
             <c:forEach items="${requestScope.sessions}" var="ses">
                 <tr>
@@ -91,6 +92,11 @@
                             <c:if test="${ses.isTaken}">Edit</c:if>
                             <c:if test="${!ses.isTaken}">Take</c:if>
                             </a>
+                        </td>
+                        <td>
+                        <c:if test="${ses.isTaken}">
+                            <a href="viewattendance?sesid=${ses.id}">View</a>
+                        </c:if>
                         </td>
                     </tr>
             </c:forEach>

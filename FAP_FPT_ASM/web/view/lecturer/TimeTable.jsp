@@ -11,16 +11,85 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script>
-        </script>
-        <link rel="stylesheet" href="../css/lecturer/TimeTableStyle.css"/>
-    </head>
-    <body>
-        <form action="timetable" method="GET">
+        <title>Weekly Timetable</title>
+        
+        <style>
+            form {
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            body {
+                background-color: #fff;
+                color: #000;
+                font-family: Arial, sans-serif;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            table, th, td {
+                border: 1px solid orange;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #ddd;
+            }
+            input[type=submit] {
+                background-color: orange;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 10px 0; /* Căn giữa theo chiều dọc */
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            input[type=submit]:hover {
+                background-color: #ff7f00;
+            }
+            input[type=button] {
+                background-color: orange;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            input[type=button]:hover {
+                background-color: #ff7f00;
+            }
+            
+            
+            
+        </style>
 
-            Lecturer:<input type="text" name="lid" value="${requestScope.lid}"/>
-            <input type="submit" value="View"/>
+
+    </head>
+
+    <body>
+        <a href="/FAP_FPT_ASM/home/indexHomeLecturer.html"><input type="button" value="Home"/></a>
+        <form action="timetable" method="GET">
+            <div>
+                <input type="submit" value="View"/>
+            </div>
             <br/>
 
             <table border="1px">
@@ -29,7 +98,7 @@
                         From:<input type="date" name="from" value="${requestScope.from}"/>
                     </td>
                     <c:forEach items="${requestScope.dates}" var="date">
-                        <td><fmt:formatDate pattern="E" value="${date}" /></td>
+                        <td><fmt:formatDate pattern="EEEE" value="${date}" /></td>
                     </c:forEach>
                 </tr>
                 <tr>
@@ -37,7 +106,7 @@
                         To:<input type="date" name="to" value="${requestScope.to}"/>
                     </td>
                     <c:forEach items="${requestScope.dates}" var="date">
-                        <td class="header-timetable"><fmt:formatDate pattern="d/M" value="${date}" /></td>
+                        <td><fmt:formatDate pattern="d/M" value="${date}" /></td>
                     </c:forEach>
                 </tr>
 
@@ -57,11 +126,11 @@
 
                                         <c:if test="${ses.isTaken}">(<span style="color: green;">Attended</span>)</c:if>
                                         <c:if test="${!ses.isTaken}">(<span style="color: red;">Not Yet</span>)</c:if>
-                                        <br/>
-                                        <a href="attendance?sesid=${ses.id}">
-                                        <c:if test="${ses.isTaken}">Edit</c:if>
-                                        <c:if test="${!ses.isTaken}">Take</c:if>
-                                    </a>
+                                            <br/>
+                                            <a href="attendance?sesid=${ses.id}">
+                                            <c:if test="${ses.isTaken}">Edit</c:if>
+                                            <c:if test="${!ses.isTaken}">Take</c:if>
+                                            </a>
                                     </c:if>
                                 </c:forEach>
                             </td>

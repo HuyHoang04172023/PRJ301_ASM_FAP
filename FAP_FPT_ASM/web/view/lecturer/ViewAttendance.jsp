@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Attendance
-    Created on : Mar 5, 2024, 11:08:58 PM
+    Document   : ViewAttendance
+    Created on : Mar 18, 2024, 10:27:11 PM
     Author     : Hoang
 --%>
 
@@ -10,10 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Take Attendance</title>
+        <title>View Attendance</title>
         <style>
             form {
-                width: 95%;
+                width: 100%;
                 margin: 0 auto;
                 text-align: center; 
             }
@@ -56,10 +56,27 @@
             input[type=submit]:hover {
                 background-color: #ff7f00;
             }
+            input[type=button] {
+                background-color: orange;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            input[type=button]:hover {
+                background-color: #ff7f00;
+            }
         </style>
 
     </head>
     <body>
+        <a href="/FAP_FPT_ASM/home/indexHomeLecturer.html"><input type="button" value="Home"/></a>
         <form action="attendance" method="POST">
             <%int i = 1;%>
             <input type="hidden" name="sesid" value="${param.sesid}" />
@@ -72,6 +89,7 @@
                     <td>GENDER</td>
                     <td>STATUS</td>
                     <td>COMMENT</td>
+                    <td>TAKER</td>
                     <td>RECORD TIME</td>
                 </tr>
                 <c:forEach items="${requestScope.attends}" var="att">
@@ -92,16 +110,17 @@
                             </c:if>
                         </td>
                         <td>
-                            <input type="radio" 
-                                   ${!att.isPresent?"checked=\"checked\"":""}
-                                   name="isPresent${att.student.id}" value="no"/> No
-                            <input type="radio" 
-                                   ${att.isPresent?"checked=\"checked\"":""}
-                                   name="isPresent${att.student.id}" value="yes"/> Yes
+                            <c:if test="${att.isPresent}">
+                                <p style="color: green">Present</p>
+                            </c:if>
+                                <c:if test="${!att.isPresent}">
+                                <p style="color: red">Absent</p>
+                            </c:if>
                         </td>
                         <td>
-                            <input type="text" name="description${att.student.id}" value="${att.description}"/>
+                            <p>${att.description}</p>
                         </td>
+                        <td>${att.session.lecturer.id}</td>
                         <td>${att.datetime}</td>
                     </tr>
                 </c:forEach>
@@ -111,3 +130,4 @@
 
     </body>
 </html>
+

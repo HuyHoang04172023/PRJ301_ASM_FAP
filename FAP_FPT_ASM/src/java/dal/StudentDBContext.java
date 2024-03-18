@@ -17,9 +17,34 @@ import java.util.logging.Logger;
  *
  * @author Hoang
  */
-public class StudentDBContext extends DBContext<Student>{
+public class StudentDBContext extends DBContext<Student> {
 
-    
+    public ArrayList<Student> getStudentByGroup(int gid) {
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT \n"
+                    + "s.sid,s.sname,s.semail,s.sgender\n"
+                    + "FROM Student s\n"
+                    + "INNER JOIN GroupStudent gs ON s.sid = gs.sid\n"
+                    + "INNER JOIN [Group] g ON gs.gid = g.gid\n"
+                    + "WHERE g.gid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Student stu = new Student();
+                stu.setId(rs.getString("sid"));
+                stu.setName(rs.getString("sname"));
+                stu.setEmail(rs.getString("semail"));
+                stu.setGender(rs.getBoolean("sgender"));
+                students.add(stu);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
+
     public ArrayList<String> getSemesterByStudent(String stuid) {
         ArrayList<String> semesters = new ArrayList<>();
         try {
@@ -61,7 +86,7 @@ public class StudentDBContext extends DBContext<Student>{
         }
         return subs;
     }
-    
+
     @Override
     public ArrayList<Student> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -86,5 +111,5 @@ public class StudentDBContext extends DBContext<Student>{
     public Student get(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }

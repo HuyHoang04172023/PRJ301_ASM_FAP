@@ -42,7 +42,7 @@ public class TimeTableController extends BaseRBACController {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
     throws ServletException, IOException {
-        String lid = request.getParameter("lid");
+        String lid = (String) request.getSession().getAttribute("userid");
         String temp_from = request.getParameter("from");
         String temp_to = request.getParameter("to");
         

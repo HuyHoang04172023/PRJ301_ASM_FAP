@@ -24,6 +24,14 @@
         <servlet-name>ListSessionController</servlet-name>
         <servlet-class>controller.lecturer.ListSessionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <servlet-class>controller.lecturer.ViewAttendanceController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewGroupController</servlet-name>
+        <servlet-class>controller.lecturer.ViewGroupController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -47,5 +55,13 @@
     <servlet-mapping>
         <servlet-name>ListSessionController</servlet-name>
         <url-pattern>/lecturer/session</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAttendanceController</servlet-name>
+        <url-pattern>/lecturer/viewattendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewGroupController</servlet-name>
+        <url-pattern>/lecturer/viewgroup</url-pattern>
     </servlet-mapping>
 </web-app>
