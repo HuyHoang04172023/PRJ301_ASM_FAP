@@ -30,7 +30,7 @@
             }
 
             table, th, td {
-                border: 1px solid orange;
+                border: 1px solid ;
             }
 
             th, td {

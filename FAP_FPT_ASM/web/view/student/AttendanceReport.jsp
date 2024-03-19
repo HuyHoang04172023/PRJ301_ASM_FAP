@@ -10,7 +10,65 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Attendance Report</title>
+        <style>
+            /* CSS để áp dụng tông màu chủ đạo là orange */
+            body {
+                background-color: #fff; /* Màu nền */
+                color: #333; /* Màu chữ chính */
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="submit"],
+
+            input[type="submit"],
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td {
+                padding: 10px;
+                border: 1px solid ; 
+            }
+
+            td div {
+                color: #3eabcc; 
+            }
+
+            td div span {
+                font-weight: bold;
+            }
+
+            a {
+                text-decoration: none;
+                color: #3eabcc; 
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+            
+            input[type=button] {
+                background-color: orange;
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            input[type=button]:hover {
+                background-color: #ff7f00;
+            }
+
+        </style>
     </head>
     <body>
         <a href="/FAP_FPT_ASM/home/indexHomeStudent.html"><input type="button" value="Home"/></a>
@@ -79,27 +137,27 @@
                             </tr>
                             <c:forEach items="${requestScope.atts}" var="a">
                                 <tr>
-                                <td><%= i %>
-                            <% i++; %></td>
-                                <td>${a.session.date}</td>
-                                <td>${a.session.slot.name}</td>
-                                <td>${a.session.room.name}</td>
-                                <td>${a.session.lecturer.id}</td>
-                                <td>${a.session.group.name}</td>
-                                <td>
-                                    <c:if test="${empty a.isPresent}">
-                                        <span style="color: black">Not Yet</span>
-                                    </c:if>
-                                    <c:if test="${a.isPresent}">
-                                        <span style="color: green">Present</span>
-                                    </c:if>
+                                    <td><%= i %>
+                                        <% i++; %></td>
+                                    <td>${a.session.date}</td>
+                                    <td>${a.session.slot.name}</td>
+                                    <td>${a.session.room.name}</td>
+                                    <td>${a.session.lecturer.id}</td>
+                                    <td>${a.session.group.name}</td>
+                                    <td>
+                                        <c:if test="${empty a.isPresent}">
+                                            <span style="color: black">Not Yet</span>
+                                        </c:if>
+                                        <c:if test="${a.isPresent}">
+                                            <span style="color: green">Present</span>
+                                        </c:if>
                                         <c:if test="${!a.isPresent}">
-                                        <span style="color: red">Absent</span>
-                                    </c:if>
-                                        
-                                </td>
-                                <td>${a.description}</td>
-                            </tr>
+                                            <span style="color: red">Absent</span>
+                                        </c:if>
+
+                                    </td>
+                                    <td>${a.description}</td>
+                                </tr>
                             </c:forEach>
                         </table>
                     </td>
