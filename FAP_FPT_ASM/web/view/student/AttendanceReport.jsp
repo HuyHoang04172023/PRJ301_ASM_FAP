@@ -88,7 +88,7 @@
                                 <td>${a.session.group.name}</td>
                                 <td>
                                     <c:if test="${empty a.isPresent}">
-                                        <span style="color: red">Not Yet</span>
+                                        <span style="color: black">Not Yet</span>
                                     </c:if>
                                     <c:if test="${a.isPresent}">
                                         <span style="color: green">Present</span>

@@ -23,7 +23,61 @@ import java.util.logging.Logger;
  */
 public class SessionDBContext extends DBContext<Session> {
 
-    public ArrayList<Attendance> getgetAttendencesByStudent(String stuid,String subid) {
+    public ArrayList<Session> getSessionByStudentIdFromTo(String stuid, Date from, Date to) {
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+            String sql = "SELECT \n"
+                    + "ses.sesid,ses.date,\n"
+                    + "g.gid,g.gname,\n"
+                    + "sub.subid,sub.subname,\n"
+                    + "r.rid,r.rnumber,\n"
+                    + "t.tid, t.tname\n"
+                    + "FROM [Session] ses \n"
+                    + "INNER JOIN [Group] g ON ses.gid = g.gid\n"
+                    + "INNER JOIN GroupStudent gs ON g.gid = gs.gid\n"
+                    + "INNER JOIN [Subject] sub ON g.subid = sub.subid\n"
+                    + "INNER JOIN Room r ON ses.rid = r.rid\n"
+                    + "INNER JOIN TimeSlot t ON ses.tid = t.tid\n"
+                    + "WHERE gs.sid = ? AND ses.date BETWEEN ? AND ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, stuid);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session ses = new Session();
+                ses.setId(rs.getInt("sesid"));
+                ses.setDate(rs.getDate("date"));
+
+                Group g = new Group();
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                Subject sub = new Subject();
+                sub.setId(rs.getString("subid"));
+                sub.setName(rs.getString("subname"));
+                g.setSubject(sub);
+                ses.setGroup(g);
+
+                Room r = new Room();
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rnumber"));
+                ses.setRoom(r);
+                
+                TimeSlot t = new TimeSlot();
+                t.setId(rs.getInt("tid"));
+                t.setName(rs.getString("tname"));
+                ses.setSlot(t);
+
+                sessions.add(ses);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sessions;
+    }
+
+    public ArrayList<Attendance> getgetAttendencesByStudent(String stuid, String subid) {
         ArrayList<Attendance> atts = new ArrayList<>();
         try {
             String sql = "SELECT \n"
@@ -48,54 +102,49 @@ public class SessionDBContext extends DBContext<Session> {
             stm.setString(1, stuid);
             stm.setString(2, subid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Attendance att = new Attendance();
                 att.setId(rs.getInt("aid"));
                 att.setIsPresent(rs.getBoolean("ispresent"));
                 att.setDescription(rs.getString("description"));
                 att.setDatetime(rs.getTimestamp("datetime"));
-                
-                
+
                 Student stu = new Student();
                 stu.setId(rs.getString("sid"));
                 stu.setName(rs.getString("sname"));
                 att.setStudent(stu);
-                
+
                 Session ses = new Session();
                 Group g = new Group();
                 g.setId(rs.getInt("gid"));
                 g.setName(rs.getString("gname"));
-                
+
                 Lecturer l = new Lecturer();
                 l.setId(rs.getString("lid"));
                 l.setName(rs.getString("lname"));
                 ses.setLecturer(l);
-                
+
                 Room r = new Room();
                 r.setId(rs.getInt("rid"));
                 r.setName(rs.getString("rnumber"));
                 ses.setRoom(r);
-                
+
                 TimeSlot t = new TimeSlot();
                 t.setId(rs.getInt("tid"));
                 t.setName(rs.getString("tname"));
                 ses.setSlot(t);
-                
+
                 ses.setGroup(g);
                 ses.setDate(rs.getDate("date"));
-                
+
                 att.setSession(ses);
                 atts.add(att);
-                
-                
-                
-                
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return atts;
     }
 

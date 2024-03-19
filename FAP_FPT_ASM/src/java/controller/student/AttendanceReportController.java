@@ -4,9 +4,12 @@
  */
 package controller.student;
 
+import controller.authentication.authorization.BaseRBACController;
 import dal.SessionDBContext;
 import dal.StudentDBContext;
+import entity.Account;
 import entity.Attendance;
+import entity.Role;
 import entity.Subject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class AttendanceReportController extends HttpServlet {
+public class AttendanceReportController extends BaseRBACController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -58,7 +61,7 @@ public class AttendanceReportController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
         String stuid = (String) request.getSession().getAttribute("userid");
         String semester = request.getParameter("semester");
@@ -90,7 +93,7 @@ public class AttendanceReportController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, Account account,ArrayList<Role> roles)
             throws ServletException, IOException {
         processRequest(request, response);
     }

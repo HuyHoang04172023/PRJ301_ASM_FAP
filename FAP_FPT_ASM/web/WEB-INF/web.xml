@@ -48,6 +48,10 @@
         <servlet-name>AttendanceReportController</servlet-name>
         <servlet-class>controller.student.AttendanceReportController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TimeTableStudentController</servlet-name>
+        <servlet-class>controller.student.TimeTableStudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -95,5 +99,9 @@
     <servlet-mapping>
         <servlet-name>AttendanceReportController</servlet-name>
         <url-pattern>/student/attendanereport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TimeTableStudentController</servlet-name>
+        <url-pattern>/student/timetable</url-pattern>
     </servlet-mapping>
 </web-app>

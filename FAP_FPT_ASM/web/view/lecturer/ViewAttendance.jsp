@@ -125,7 +125,6 @@
                     </tr>
                 </c:forEach>
             </table>
-            <input type="submit" value="Add"/>
         </form>
 
     </body>
