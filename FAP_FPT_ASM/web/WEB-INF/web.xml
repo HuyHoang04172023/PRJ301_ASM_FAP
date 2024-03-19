@@ -36,6 +36,18 @@
         <servlet-name>ViewScoreStudentController</servlet-name>
         <servlet-class>controller.lecturer.ViewScoreStudentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarkReportStudentController</servlet-name>
+        <servlet-class>controller.lecturer.MarkReportStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewScoreController</servlet-name>
+        <servlet-class>controller.student.ViewScoreController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AttendanceReportController</servlet-name>
+        <servlet-class>controller.student.AttendanceReportController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeTableController</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
@@ -71,5 +83,17 @@
     <servlet-mapping>
         <servlet-name>ViewScoreStudentController</servlet-name>
         <url-pattern>/lecturer/viewscorestudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkReportStudentController</servlet-name>
+        <url-pattern>/lecturer/markreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewScoreController</servlet-name>
+        <url-pattern>/student/viewscore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendanceReportController</servlet-name>
+        <url-pattern>/student/attendanereport</url-pattern>
     </servlet-mapping>
 </web-app>

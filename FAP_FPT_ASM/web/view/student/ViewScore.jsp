@@ -90,13 +90,9 @@
         </style>
     </head>
     <body>
-        <a href="/FAP_FPT_ASM/home/indexHomeLecturer.html"><input type="button" value="Home"/></a>
+        <a href="/FAP_FPT_ASM/home/indexHomeStudent.html"><input type="button" value="Home"/></a>
             <%int i = 1;%>
         <br/>
-        <form>
-            Student ID: <input type="text" name="stuid" value="${requestScope.stuid}"/>
-            <input type="submit" value="Search"/>
-        </form>
         
         <c:if test="${not empty requestScope.grades}">
             <table border="1px">
@@ -113,10 +109,7 @@
                         <td><%= i %>
                             <% i++; %></td>
                         <td>
-                            <a href="../lecturer/markreport?stuid=${requestScope.stuid}&semester=${g.exam.semester}&subid=${g.exam.assessment.subject.id}">
                                 ${g.exam.assessment.subject.id}
-                            </a>
-                            
                         </td>
                         <td>${g.exam.assessment.subject.name}</td>
                         <td>${g.exam.semester}</td>

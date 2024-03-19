@@ -17,6 +17,7 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
+                width: 40%;
             }
 
             form {
@@ -91,56 +92,11 @@
         </style>
     </head>
     <body>
-        <a href="/FAP_FPT_ASM/home/indexHomeStudent.html"><input type="button" value="Home"/></a>
+        <a href="/FAP_FPT_ASM/home/indexHomeLecturer.html"><input type="button" value="Home"/></a>
         <form action="markreport" method="GET">
         </form>
         <table>
-            <tr>
-                <td>
-                    <table border = "1px">
-                        <tr>
-                            <c:if test="${not empty requestScope.semesters}">
-                                <td>SEMESTER</td>
-                            </c:if>
 
-                            <c:if test="${not empty requestScope.subs}">
-                                <td>COURSE</td>
-                            </c:if>
-
-                        </tr>
-                        <tr>
-                            <c:if test="${not empty requestScope.semesters}">
-                                <td>
-                                    <table>
-                                        <c:forEach items="${requestScope.semesters}" var="ses">
-                                            <tr>
-                                                <td>
-                                                    <a href="?stuid=${requestScope.stuid}&semester=${ses}">${ses}</a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </table>
-                                </td>
-                            </c:if>
-
-                            <c:if test="${not empty requestScope.subs}">
-                                <td>
-                                    <table>
-                                        <c:forEach items="${requestScope.subs}" var="s">
-                                            <tr>
-                                                <td>
-                                                    <a href="?stuid=${requestScope.stuid}&semester=${param.semester}&subid=${s.id}">
-                                                        ${s.name}(${s.id})
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </table>
-                                </td>
-                            </c:if>
-                        </tr>
-                    </table>
-                </td>
 
                 <c:if test="${not empty requestScope.grades}">
                     <td>

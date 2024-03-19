@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.lecturer;
+package controller.student;
 
 import controller.authentication.authorization.BaseRBACController;
 import dal.GradeDBContext;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author Hoang
  */
-public class ViewScoreStudentController extends BaseRBACController {
+public class ViewScoreController extends BaseRBACController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,16 +33,15 @@ public class ViewScoreStudentController extends BaseRBACController {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
-        String stuid = request.getParameter("stuid");
+        String stuid = (String) request.getSession().getAttribute("userid");
         
         GradeDBContext graDB = new GradeDBContext();
         ArrayList<Grade> grades = graDB.getGradeTotalByStudent(stuid);
         
         request.setAttribute("stuid", stuid);
         request.setAttribute("grades", grades);
-        request.getRequestDispatcher("../view/lecturer/ViewScoreStudent.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("../view/student/ViewScore.jsp").forward(request, response);
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
